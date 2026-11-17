@@ -1,0 +1,956 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff0f5">
+  <title>ครบ 3 เดือนแล้วนะ บุญชู ♡</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #51343f;
+      --muted: #886b78;
+      --rose: #ff7098;
+      --rose-deep: #df3f70;
+      --cream: #fff0f5;
+      --paper: #fffdfb;
+      --peach: #ffe1c1;
+      --lilac: #eee3ff;
+      --line: #f1e7e2;
+      font-family: "Leelawadee UI", "Noto Sans Thai", Tahoma, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      overflow-x: hidden;
+      background:
+        radial-gradient(ellipse at 8% 12%, #ffd1df 0, transparent 29rem),
+        radial-gradient(ellipse at 92% 38%, #e8d8ff 0, transparent 31rem),
+        radial-gradient(ellipse at 48% 91%, #fff0bd 0, transparent 27rem),
+        linear-gradient(135deg, #fff4f8, #fffaf0 48%, #f7f0ff);
+      font-size: 16px;
+      line-height: 1.75;
+    }
+
+    button { font: inherit; }
+
+    .ambient {
+      position: fixed;
+      z-index: 0;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .orb {
+      position: absolute;
+      width: 250px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      opacity: .55;
+      filter: blur(1px);
+      animation: drift 8s ease-in-out infinite alternate;
+    }
+
+    .orb.one { top: 10%; left: -120px; background: #ffabc2; }
+    .orb.two { top: 54%; right: -130px; background: #cfb7ff; animation-delay: -3s; }
+    .orb.three { bottom: -180px; left: 37%; width: 300px; background: #ffd58a; animation-delay: -5s; }
+
+    .floaties {
+      position: fixed;
+      z-index: 2;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .ambient-heart {
+      position: absolute;
+      bottom: -12vh;
+      left: var(--x);
+      color: var(--color);
+      font-size: var(--size);
+      opacity: 0;
+      animation: float-up var(--duration) var(--delay) linear infinite;
+      filter: drop-shadow(0 6px 12px #df3f7030);
+      will-change: transform, opacity;
+    }
+
+    .floaty {
+      position: absolute;
+      bottom: -35px;
+      color: var(--rose);
+      opacity: 0;
+      animation: float-up var(--duration) linear forwards;
+      will-change: transform, opacity;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      width: min(100% - 32px, 1060px);
+      margin-inline: auto;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 0;
+      color: var(--muted);
+      font-size: .85rem;
+      letter-spacing: .03em;
+    }
+
+    .brand {
+      color: var(--rose-deep);
+      font-weight: 700;
+    }
+
+    .topbar > span:last-child {
+      padding: 6px 12px;
+      border: 1px solid #f1d5e0;
+      border-radius: 999px;
+      background: #fffaf8ba;
+    }
+
+    .ticker {
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      margin: 0 auto;
+      padding: 9px 0;
+      border-block: 1px solid #f7d8e3;
+      color: #bb5274;
+      background: #fff7fbcc;
+      white-space: nowrap;
+    }
+
+    .ticker-track {
+      display: inline-flex;
+      gap: 34px;
+      min-width: max-content;
+      animation: ticker-scroll 22s linear infinite;
+      font-size: .85rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 620px;
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      align-items: center;
+      gap: 48px;
+      padding: 42px 0 78px;
+    }
+
+    .hero-copy-block { animation: rise-in .8s .08s both; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 14px;
+      border: 1px solid #efd6d5;
+      border-radius: 999px;
+      background: #fffaf8cc;
+      color: var(--rose-deep);
+      font-size: .85rem;
+      box-shadow: 0 5px 18px #b95e720c;
+    }
+
+    h1, h2, p { margin-top: 0; }
+
+    h1 {
+      margin: 20px 0 14px;
+      font-size: clamp(2.6rem, 6vw, 5rem);
+      line-height: 1.16;
+      letter-spacing: -.045em;
+      font-weight: 750;
+    }
+
+    h1 .line { display: inline-block; animation: rise-in .8s .2s both; }
+
+    h1 .highlight {
+      color: var(--rose-deep);
+      white-space: nowrap;
+      text-shadow: 0 8px 26px #d9829129;
+    }
+
+    .hero-copy {
+      max-width: 520px;
+      margin-bottom: 27px;
+      color: #75676a;
+      font-size: 1.07rem;
+    }
+
+    .names {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 30px;
+      color: var(--muted);
+      font-size: .96rem;
+    }
+
+    .names strong { color: var(--ink); }
+
+    .tiny-heart {
+      color: var(--rose);
+      font-size: 1.1rem;
+    }
+
+    .button {
+      position: relative;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 48px;
+      padding: 11px 20px;
+      border: 0;
+      border-radius: 14px;
+      color: white;
+      background: var(--rose-deep);
+      box-shadow: 0 8px 20px #b95e7228;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+
+    .button::after {
+      position: absolute;
+      top: -80%;
+      left: -45%;
+      width: 35%;
+      height: 260%;
+      background: #ffffff3b;
+      content: "";
+      transform: rotate(25deg);
+      transition: left .5s ease;
+    }
+
+    .button:hover::after { left: 120%; }
+
+    .button:hover {
+      transform: translateY(-2px);
+      background: #a94c62;
+      box-shadow: 0 11px 24px #b95e7233;
+    }
+
+    .button:focus-visible, a:focus-visible {
+      outline: 3px solid #d9829166;
+      outline-offset: 4px;
+    }
+
+    .art {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 420px;
+      perspective: 900px;
+      animation: rise-in .9s .18s both;
+    }
+
+    .sun {
+      position: absolute;
+      width: min(78vw, 350px);
+      aspect-ratio: 1;
+      border-radius: 48% 52% 43% 57% / 52% 43% 57% 48%;
+      background: linear-gradient(145deg, #ff9fba, #ffd8ae 48%, #cab0ff);
+      transform: rotate(-8deg);
+      animation: sun-breathe 7s ease-in-out infinite;
+      box-shadow: 0 0 90px #f184ad55;
+    }
+
+    .envelope {
+      position: relative;
+      width: min(82%, 340px);
+      height: 300px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      cursor: pointer;
+      transform: rotate(3deg);
+      perspective: 900px;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .envelope:focus-visible {
+      outline: 3px solid #df3f7066;
+      outline-offset: 8px;
+      border-radius: 22px;
+    }
+
+    .envelope-back {
+      position: absolute;
+      inset: 18% 0 0;
+      border: 3px solid #fff;
+      border-radius: 18px 18px 24px 24px;
+      background: linear-gradient(145deg, #ffbad0, #ff8faf);
+      box-shadow: 0 26px 55px #b843772e, inset 0 -12px 0 #f4779a;
+    }
+
+    .envelope-paper {
+      position: absolute;
+      z-index: 2;
+      top: 13%;
+      left: 9%;
+      display: grid;
+      align-content: center;
+      width: 82%;
+      height: 74%;
+      padding: 18px;
+      border: 2px solid #fff;
+      border-radius: 14px;
+      color: #8c4c68;
+      background: linear-gradient(145deg, #fffefb, #fff1f6);
+      box-shadow: 0 8px 24px #a8437018;
+      line-height: 1.7;
+      transition: transform .8s cubic-bezier(.2,.85,.25,1), box-shadow .5s ease;
+    }
+
+    .envelope-paper strong { display: block; color: var(--rose-deep); font-size: 1.2rem; }
+    .envelope-paper small { display: block; margin-top: 8px; color: var(--muted); }
+
+    .envelope-flap {
+      position: absolute;
+      z-index: 5;
+      top: 18%;
+      left: 0;
+      width: 100%;
+      height: 48%;
+      background: linear-gradient(145deg, #ff9fbd, #f86f9a);
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: top center;
+      transition: transform .65s ease, z-index .01s .32s;
+      filter: drop-shadow(0 6px 7px #b8437720);
+    }
+
+    .envelope-pocket {
+      position: absolute;
+      z-index: 4;
+      inset: 18% 0 0;
+      border-radius: 18px 18px 24px 24px;
+      background: linear-gradient(145deg, #ffb3c9, #ff83a5);
+      clip-path: polygon(0 0, 50% 53%, 100% 0, 100% 100%, 0 100%);
+    }
+
+    .envelope-seal {
+      position: absolute;
+      z-index: 6;
+      top: 48%;
+      left: 50%;
+      display: grid;
+      place-items: center;
+      width: 54px;
+      height: 54px;
+      border: 3px solid #fff5f8;
+      border-radius: 50%;
+      color: #fff;
+      background: linear-gradient(145deg, #ffcb68, #ff9b55);
+      box-shadow: 0 6px 15px #9f4f4a35;
+      font-size: 1.55rem;
+      transform: translate(-50%, -50%);
+      animation: stamp-beat 1.7s ease-in-out infinite;
+      transition: opacity .25s ease, scale .25s ease;
+    }
+
+    .envelope-hint {
+      position: absolute;
+      right: 0;
+      bottom: -27px;
+      left: 0;
+      color: #a25676;
+      font-size: .84rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .envelope.is-open .envelope-paper {
+      z-index: 7;
+      transform: translateY(-31%) rotate(-2deg);
+      box-shadow: 0 22px 40px #a8437025;
+    }
+
+    .envelope.is-open .envelope-flap {
+      z-index: 1;
+      transform: rotateX(180deg);
+    }
+
+    .envelope.is-open .envelope-seal { opacity: 0; scale: .5; }
+    .envelope.is-open .envelope-hint { color: var(--rose-deep); }
+
+    .pets {
+      padding: 20px 0 60px;
+    }
+
+    .pets-heading {
+      margin: 0 auto 22px;
+      color: #985372;
+      font-size: 1.15rem;
+      text-align: center;
+    }
+
+    .pet-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .pet-card {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      min-height: 140px;
+      padding: 20px 24px;
+      overflow: hidden;
+      border: 2px solid #fff;
+      border-radius: 24px;
+      color: var(--ink);
+      background: linear-gradient(135deg, #fff8fb, #ffe3ed);
+      box-shadow: 0 12px 28px #a8437014;
+      text-align: left;
+      cursor: pointer;
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .pet-card[data-pet="hamster"] { background: linear-gradient(135deg, #fff9ec, #ffe9c9); }
+    .pet-card:hover { transform: translateY(-5px) rotate(-1deg); box-shadow: 0 18px 32px #a8437020; }
+    .pet-card:focus-visible { outline: 3px solid #df3f7066; outline-offset: 4px; }
+
+    .pet-avatar {
+      position: relative;
+      z-index: 1;
+      flex: 0 0 88px;
+      display: grid;
+      place-items: center;
+      width: 88px;
+      height: 88px;
+      border: 3px solid white;
+      border-radius: 32px;
+      background: #ffc9d9;
+      box-shadow: 0 7px 17px #9f4f4a1a;
+      font-size: 3.4rem;
+      line-height: 1;
+      animation: pet-bounce 2.4s ease-in-out infinite;
+    }
+
+    .pet-card[data-pet="hamster"] .pet-avatar {
+      border-radius: 50%;
+      background: #ffdfaa;
+      animation-delay: -.8s;
+    }
+
+    .pet-hello .pet-avatar { animation: pet-cheer .55s ease 2; }
+
+    .pet-copy { position: relative; z-index: 1; }
+    .pet-copy strong { display: block; color: #a8486d; font-size: 1.15rem; }
+    .pet-card[data-pet="hamster"] .pet-copy strong { color: #a76825; }
+    .pet-copy span { display: block; color: var(--muted); font-size: .9rem; }
+    .pet-speech { min-height: 1.4em; margin: 7px 0 0; color: #a8486d; font-size: .85rem; font-weight: 700; }
+
+    .pet-card::after {
+      position: absolute;
+      top: 9px;
+      right: 15px;
+      color: #ef84a3;
+      content: "♡";
+      font-size: 1.4rem;
+      animation: bob 2.6s ease-in-out infinite;
+    }
+
+    .pet-card[data-pet="hamster"]::after { color: #e6a845; content: "✦"; }
+
+    .sparkle {
+      position: absolute;
+      color: #df5891;
+      font-size: 1.5rem;
+      animation: bob 3.2s ease-in-out infinite;
+      filter: drop-shadow(0 3px 4px #b95e7222);
+    }
+
+    .sparkle.one { top: 10%; right: 12%; }
+    .sparkle.two { bottom: 12%; left: 5%; animation-delay: .7s; }
+    .sparkle.three { top: 21%; left: 5%; font-size: 1rem; animation-delay: 1.2s; }
+
+    .section {
+      padding: 70px 0;
+    }
+
+    .section-heading {
+      max-width: 580px;
+      margin: 0 auto 32px;
+      text-align: center;
+    }
+
+    .section-heading .eyebrow { margin-bottom: 12px; }
+
+    .section-heading h2 {
+      margin-bottom: 8px;
+      font-size: clamp(1.7rem, 4vw, 2.45rem);
+      line-height: 1.35;
+    }
+
+    .section-heading p {
+      margin-bottom: 0;
+      color: var(--muted);
+    }
+
+    .moments {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .moment {
+      min-height: 185px;
+      padding: 23px;
+      border: 1px solid #f1e9e5;
+      border-radius: 18px;
+      background: linear-gradient(145deg, #fffdfb, #fff5fa);
+      box-shadow: 0 12px 30px #a8437010;
+      transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+    }
+
+    .moment:hover {
+      transform: translateY(-7px) rotate(-.6deg);
+      border-color: #e9ced0;
+      box-shadow: 0 18px 34px #6c4a4b12;
+    }
+
+    .moment-icon {
+      display: grid;
+      place-items: center;
+      width: 43px;
+      height: 43px;
+      margin-bottom: 16px;
+      border-radius: 14px;
+      background: var(--peach);
+      font-size: 1.15rem;
+      transition: transform .35s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .moment:hover .moment-icon { transform: rotate(-10deg) scale(1.12); }
+
+    .moment:nth-child(2) .moment-icon { background: var(--lilac); }
+    .moment:nth-child(3) .moment-icon { background: #e4f4cf; }
+    .moment:nth-child(1) { border-top: 3px solid #ff9db7; }
+    .moment:nth-child(2) { border-top: 3px solid #bca0f2; }
+    .moment:nth-child(3) { border-top: 3px solid #f4c864; }
+    .moment h3 { margin: 0 0 5px; font-size: 1.04rem; }
+    .moment p { margin: 0; color: var(--muted); font-size: .93rem; }
+
+    .letter-wrap {
+      padding: 16px 0 80px;
+    }
+
+    .letter {
+      position: relative;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: clamp(25px, 6vw, 50px);
+      border: 1px solid #f0e4df;
+      border-radius: 22px;
+      background: linear-gradient(145deg, #fffdfb, #fff4f8);
+      box-shadow: 0 20px 50px #a8437014;
+      text-align: center;
+    }
+
+    .letter-mark {
+      margin-bottom: 10px;
+      color: var(--rose);
+      font-size: 1.7rem;
+    }
+
+    .letter h2 { margin-bottom: 17px; font-size: 1.65rem; }
+    .letter-copy { max-width: 530px; margin: 0 auto 22px; color: #706366; }
+    .letter-sign { margin: 23px 0 0; color: var(--rose-deep); font-weight: 700; }
+
+    .surprise {
+      display: none;
+      max-width: 480px;
+      margin: 22px auto 0;
+      padding: 17px 20px;
+      border-radius: 15px;
+      background: #fff4f1;
+      color: #73575c;
+      animation: appear .35s ease both;
+    }
+
+    .surprise.visible { display: block; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .65s ease, transform .65s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .moments .moment:nth-child(2) { transition-delay: .1s; }
+    .moments .moment:nth-child(3) { transition-delay: .2s; }
+
+    .letter {
+      overflow: hidden;
+    }
+
+    .letter::before, .letter::after {
+      position: absolute;
+      color: #f3d9d8;
+      font-size: 5rem;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .letter::before { top: 12px; left: 18px; content: "“"; }
+    .letter::after { right: 18px; bottom: -21px; content: "♡"; font-size: 4rem; }
+
+    footer {
+      padding: 22px 0 32px;
+      border-top: 1px solid #efe5e1;
+      color: #9a8b8d;
+      text-align: center;
+      font-size: .85rem;
+    }
+
+    @keyframes bob {
+      0%, 100% { transform: translateY(0) rotate(-8deg); }
+      50% { transform: translateY(-9px) rotate(8deg); }
+    }
+
+    @keyframes rise-in {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes sun-breathe {
+      0%, 100% { border-radius: 48% 52% 43% 57% / 52% 43% 57% 48%; scale: 1; }
+      50% { border-radius: 55% 45% 51% 49% / 44% 55% 45% 56%; scale: 1.035; }
+    }
+
+    @keyframes stamp-beat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.045) rotate(-3deg); }
+    }
+
+    @keyframes pet-bounce {
+      0%, 100% { transform: translateY(0) rotate(-3deg); }
+      50% { transform: translateY(-9px) rotate(3deg); }
+    }
+
+    @keyframes pet-cheer {
+      0%, 100% { transform: scale(1) rotate(0); }
+      35% { transform: scale(1.16) rotate(-12deg); }
+      70% { transform: scale(1.12) rotate(12deg); }
+    }
+
+    @keyframes drift {
+      from { transform: translate3d(0, -20px, 0) scale(.9); }
+      to { transform: translate3d(40px, 30px, 0) scale(1.1); }
+    }
+
+    @keyframes float-up {
+      0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(0) scale(.7); }
+      12% { opacity: .7; }
+      85% { opacity: .7; }
+      100% { opacity: 0; transform: translate3d(var(--drift), -105vh, 0) rotate(38deg) scale(1.15); }
+    }
+
+    @keyframes ticker-scroll {
+      to { transform: translateX(-50%); }
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 720px) {
+      .topbar { flex-wrap: wrap; gap: 8px; padding: 14px 0; }
+      .topbar > span:last-of-type { display: none; }
+      .hero {
+        min-height: auto;
+        grid-template-columns: 1fr;
+        gap: 4px;
+        padding: 46px 0 36px;
+        text-align: center;
+      }
+
+      .hero-copy-block { animation-delay: .02s; }
+      .hero-copy { margin-inline: auto; }
+      .names { justify-content: center; }
+      .art { min-height: 335px; }
+      .sun { width: min(72vw, 290px); }
+      .envelope { width: min(84%, 320px); height: 280px; }
+      .pets { padding: 10px 0 42px; }
+      .pet-list { grid-template-columns: 1fr; gap: 12px; }
+      .pet-card { min-height: 120px; padding: 15px 18px; }
+      .pet-avatar { flex-basis: 76px; width: 76px; height: 76px; font-size: 3rem; }
+      .section { padding: 48px 0; }
+      .moments { grid-template-columns: 1fr; }
+      .moment { min-height: 0; }
+      .moment-icon { margin-bottom: 12px; }
+      .letter::before { top: 4px; left: 8px; font-size: 3.5rem; }
+      .letter::after { right: 8px; font-size: 3rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+      }
+
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="ambient" aria-hidden="true">
+    <span class="orb one"></span>
+    <span class="orb two"></span>
+    <span class="orb three"></span>
+  </div>
+  <div class="floaties" id="floaties" aria-hidden="true">
+    <span class="ambient-heart" style="--x: 4%; --size: 25px; --color: #ff6190; --duration: 13s; --delay: -8s; --drift: 45px">♥</span>
+    <span class="ambient-heart" style="--x: 17%; --size: 19px; --color: #b58aff; --duration: 16s; --delay: -12s; --drift: -35px">✦</span>
+    <span class="ambient-heart" style="--x: 31%; --size: 23px; --color: #ff91a9; --duration: 14s; --delay: -5s; --drift: 55px">♡</span>
+    <span class="ambient-heart" style="--x: 48%; --size: 17px; --color: #f0b74d; --duration: 17s; --delay: -11s; --drift: -45px">✧</span>
+    <span class="ambient-heart" style="--x: 65%; --size: 26px; --color: #ff6190; --duration: 15s; --delay: -3s; --drift: 38px">♥</span>
+    <span class="ambient-heart" style="--x: 79%; --size: 18px; --color: #a783ec; --duration: 13s; --delay: -10s; --drift: -52px">✦</span>
+    <span class="ambient-heart" style="--x: 93%; --size: 24px; --color: #ffa14a; --duration: 16s; --delay: -6s; --drift: 42px">♡</span>
+  </div>
+  <header class="page topbar">
+    <span class="brand">เรื่องเล็กๆ ของเรา ♡</span>
+    <span>บันทึกของเค้าถึงเธอ</span>
+  </header>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>บุญชู ♡ ไรเฟิล</span><span>ครบ 3 เดือนแล้วนะ</span><span>มีเธอแล้ววันธรรมดาก็น่ารักขึ้น</span><span>บุญชู ♡ ไรเฟิล</span><span>ครบ 3 เดือนแล้วนะ</span><span>มีเธอแล้ววันธรรมดาก็น่ารักขึ้น</span>
+    </div>
+  </div>
+
+  <main>
+    <section class="page hero" aria-labelledby="main-title">
+      <div class="hero-copy-block">
+        <span class="eyebrow">♡ วันนี้มีเรื่องอยากบอก</span>
+        <h1 id="main-title">ครบ <span class="highlight">3 เดือน</span><br>แล้วนะเธอ</h1>
+        <p class="hero-copy">
+          เผลอแป๊บเดียว เราก็มีเรื่องให้ยิ้มด้วยกันมาตั้งสามเดือนแล้ว
+          เค้าเลยทำอะไรเล็กๆ มาให้เธอ 🙂
+        </p>
+        <div class="names">
+          <strong>บุญชู</strong>
+          <span class="tiny-heart">♡</span>
+          <strong>ไรเฟิล</strong>
+        </div>
+        <a class="button" href="#our-days">มาดูความในใจของเค้า <span aria-hidden="true">↓</span></a>
+      </div>
+
+      <div class="art" aria-label="ซองจดหมายครบรอบสามเดือน">
+        <div class="sun"></div>
+        <span class="sparkle one" aria-hidden="true">✦</span>
+        <span class="sparkle two" aria-hidden="true">♡</span>
+        <span class="sparkle three" aria-hidden="true">✧</span>
+        <button class="envelope" id="envelope" type="button" aria-expanded="false" aria-label="แตะเพื่อเปิดจดหมายถึงบุญชู">
+          <span class="envelope-back"></span>
+          <span class="envelope-paper">
+            <strong>ถึงบุญชู ♡</strong>
+            สุขสันต์ครบรอบ 3 เดือนนะ
+            <small>ดีใจที่มีเธอในทุกๆ วันเลย</small>
+          </span>
+          <span class="envelope-flap"></span>
+          <span class="envelope-pocket"></span>
+          <span class="envelope-seal" aria-hidden="true">♡</span>
+          <span class="envelope-hint">แตะเปิดจดหมายจากไรเฟิล ✉</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="page pets reveal" aria-labelledby="pets-title">
+      <h2 class="pets-heading" id="pets-title">แล้วนี่ก็เรา… เอ่อ เจ้าสองตัวแทนเราด้วย ♡</h2>
+      <div class="pet-list">
+        <button class="pet-card" type="button" data-pet="cat" aria-label="ทักทายแมวบุญชู">
+          <span class="pet-avatar" aria-hidden="true">🐱</span>
+          <span class="pet-copy">
+            <strong>บุญชู & ข้าวปุ้น — แมวประจำบ้าน</strong>
+            <span>กดทักน้องแมวให้ร้องเหมียวหน่อย</span>
+            <span class="pet-speech" aria-live="polite"></span>
+          </span>
+        </button>
+        <button class="pet-card" type="button" data-pet="hamster" aria-label="ทักทายแฮมสเตอร์ไรเฟิล">
+          <span class="pet-avatar" aria-hidden="true">🐹</span>
+          <span class="pet-copy">
+            <strong>ไรเฟิล & โฟโมส — แฮมสเตอร์ตัวจิ๋ว</strong>
+            <span>กดทักน้องแฮมสเตอร์ให้ส่งเสียงจิ๊บๆ</span>
+            <span class="pet-speech" aria-live="polite"></span>
+          </span>
+        </button>
+      </div>
+    </section>
+
+    <section class="page section" id="our-days" aria-labelledby="moments-title">
+      <div class="section-heading reveal">
+        <span class="eyebrow">บันทึกเล็กๆ ของเรา</span>
+        <h2 id="moments-title">สามเดือนที่ผ่านมา</h2>
+        <p>ไม่ต้องเป็นวันพิเศษทุกวัน แค่มีเธออยู่ในวันธรรมดาก็ดีแล้ว</p>
+      </div>
+      <div class="moments">
+        <article class="moment reveal">
+          <div class="moment-icon" aria-hidden="true">☁️</div>
+          <h3>มีคนให้คิดถึง</h3>
+          <p>วันไหนเหนื่อยๆ แค่ได้คุยกับเธอ วันนั้นก็ดีขึ้นนิดนึงแล้ว</p>
+        </article>
+        <article class="moment reveal">
+          <div class="moment-icon" aria-hidden="true">☕</div>
+          <h3>เรื่องธรรมดาที่พิเศษ</h3>
+          <p>ชอบเวลาที่เราได้คุย ได้หัวเราะ แล้วก็เป็นตัวเองด้วยกัน</p>
+        </article>
+        <article class="moment reveal">
+          <div class="moment-icon" aria-hidden="true">🌷</div>
+          <h3>อยากมีวันแบบนี้อีก</h3>
+          <p>ขอบคุณที่ค่อยๆ เรียนรู้กันนะ เค้ายังอยากสร้างความทรงจำกับเธออีกเยอะเลย</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="page letter-wrap" aria-labelledby="letter-title">
+      <div class="letter reveal">
+        <div class="letter-mark" aria-hidden="true">♡</div>
+        <h2 id="letter-title">ถึงบุญชู</h2>
+        <p class="letter-copy">
+          สุขสันต์วันครบรอบ 3 เดือนนะเธอ ขอบคุณที่เข้ามาเป็นส่วนหนึ่งในชีวิตเค้า
+          ขอบคุณที่ใส่ใจและทำให้หลายๆ วันของเค้ามีรอยยิ้ม
+          เค้าอาจจะไม่ได้พูดเก่ง แต่เค้าดีใจนะที่มีเธออยู่ตรงนี้
+          ขอให้เราค่อยๆ ดูแลกันแบบนี้ไปเรื่อยๆ เลยนะ
+        </p>
+        <button class="button" id="surprise-button" type="button" aria-expanded="false" aria-controls="surprise-message">
+          กดรับคำอวยพรลับๆ ♡
+        </button>
+        <div class="surprise" id="surprise-message" role="status">
+          ขอให้วันนี้ของเธอน่ารักเหมือนเธอเลยนะ — เค้ารักเธอนะบุญชู ♡
+        </div>
+        <p class="letter-sign">รักนะ จากไรเฟิล</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="page">ทำไว้ให้เธอคนเดียวเลยนะ ♡</footer>
+
+  <script>
+    const surpriseButton = document.querySelector("#surprise-button");
+    const surpriseMessage = document.querySelector("#surprise-message");
+    const envelope = document.querySelector("#envelope");
+    const floaties = document.querySelector("#floaties");
+    let soundContext;
+
+    envelope.addEventListener("click", () => {
+      if (envelope.classList.contains("is-open")) return;
+      envelope.classList.add("is-open");
+      envelope.setAttribute("aria-expanded", "true");
+      envelope.setAttribute("aria-label", "จดหมายเปิดแล้ว ถึงบุญชู จากไรเฟิล");
+      envelope.querySelector(".envelope-hint").textContent = "เปิดแล้วนะ อ่านจดหมายของเค้าเลย ♡";
+      playSound("letter");
+      makeHearts(12);
+    });
+
+    surpriseButton.addEventListener("click", () => {
+      const isVisible = surpriseMessage.classList.toggle("visible");
+      surpriseButton.setAttribute("aria-expanded", String(isVisible));
+      surpriseButton.textContent = isVisible ? "เก็บคำอวยพรไว้แล้ว ♡" : "กดรับคำอวยพรลับๆ ♡";
+      if (isVisible) {
+        playSound("letter");
+        makeHearts(18);
+      }
+    });
+
+    document.querySelectorAll(".pet-card").forEach((petCard) => {
+      petCard.addEventListener("click", () => {
+        const isCat = petCard.dataset.pet === "cat";
+        const speech = isCat ? "เหมียว~ ข้าวปุ้นมาแล้ว ♡" : "โฟโมสขอขนมหน่อย จิ๊บๆ";
+        petCard.querySelector(".pet-speech").textContent = speech;
+        petCard.classList.remove("pet-hello");
+        void petCard.offsetWidth;
+        petCard.classList.add("pet-hello");
+        playSound(isCat ? "cat" : "hamster");
+        makeHearts(5);
+      });
+    });
+
+    function playSound(kind) {
+      const AudioContextConstructor = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContextConstructor) return;
+      soundContext = soundContext || new AudioContextConstructor();
+      if (soundContext.state === "suspended") void soundContext.resume();
+
+      const now = soundContext.currentTime;
+      const notes = kind === "cat"
+        ? [{ frequency: 570, bend: 780 }, { frequency: 740, bend: 610 }]
+        : kind === "hamster"
+          ? [{ frequency: 920, bend: 1180 }, { frequency: 1040, bend: 900 }]
+          : [{ frequency: 660, bend: 660 }, { frequency: 830, bend: 830 }, { frequency: 1050, bend: 1050 }];
+
+      notes.forEach((note, index) => {
+        const start = now + index * .12;
+        const oscillator = soundContext.createOscillator();
+        const volume = soundContext.createGain();
+        oscillator.type = "sine";
+        oscillator.frequency.setValueAtTime(note.frequency, start);
+        oscillator.frequency.linearRampToValueAtTime(note.bend, start + .11);
+        volume.gain.setValueAtTime(.0001, start);
+        volume.gain.linearRampToValueAtTime(.045, start + .025);
+        volume.gain.exponentialRampToValueAtTime(.0001, start + .2);
+        oscillator.connect(volume);
+        volume.connect(soundContext.destination);
+        oscillator.start(start);
+        oscillator.stop(start + .21);
+      });
+    }
+
+    function makeHearts(count) {
+      for (let index = 0; index < count; index += 1) {
+        const heart = document.createElement("span");
+        heart.className = "floaty";
+        heart.textContent = index % 4 === 0 ? "✦" : "♡";
+        heart.style.left = `${Math.random() * 100}%`;
+        heart.style.setProperty("--duration", `${3 + Math.random() * 2}s`);
+        heart.style.setProperty("--drift", `${Math.round(Math.random() * 150 - 75)}px`);
+        heart.style.fontSize = `${14 + Math.random() * 16}px`;
+        floaties.append(heart);
+        heart.addEventListener("animationend", () => heart.remove(), { once: true });
+      }
+    }
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries, currentObserver) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+            currentObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
+    } else {
+      document.querySelectorAll(".reveal").forEach((element) => element.classList.add("in-view"));
+    }
+
+  </script>
+</body>
+</html>
